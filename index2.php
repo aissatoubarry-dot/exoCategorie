@@ -1,5 +1,6 @@
 <?php
 
+//1
 $categories = [
 
     0 => [
@@ -28,6 +29,15 @@ $categories = [
          ]
 ];
 
+//2
+function afficherCategoriesSansProduits(array $categories): void{
+    foreach ($categories as  $categorie ) {
+        if (empty($categorie["produits"])) {
+            echo $categorie["nom"]."\n";
+        }
+    }
+}
+afficherCategoriesSansProduits($categories);
 
 
 
