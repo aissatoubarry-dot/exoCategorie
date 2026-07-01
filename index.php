@@ -138,12 +138,12 @@ if ($categorieExiste) {
 
         do {
             $prix = (int)readline("saisir le prix : ");
-        } while ($prix >= 0);
+        } while ($prix <= 0);
         
         
         do {
             $quantite = (int)readline("saisir la quantite : ");
-        } while ($quantite >= 0);
+        } while ($quantite <= 0);
           
 
         $produit =   [
@@ -237,12 +237,12 @@ do {
 
         do {
             $prix = (int)readline("saisir le prix : ");
-        } while ($prix >= 0);
+        } while ($prix <= 0);
         
         
         do {
             $quantite = (int)readline("saisir la quantite : ");
-        } while ($quantite >= 0);
+        } while ($quantite <= 0);
           
         $produit =   [
             "nom" => $nom,
