@@ -37,7 +37,7 @@ function afficherCategoriesSansProduits(array $categories): void{
         }
     }
 }
-afficherCategoriesSansProduits($categories);
+// afficherCategoriesSansProduits($categories);
 
 
 
@@ -117,9 +117,9 @@ function ajouterCategorie(): void
     $categories[] = $categorie;
 }
 
-ajouterCategorie();
+// ajouterCategorie();
 
-print_r($categories);
+// print_r($categories);
 
 
 //4
@@ -208,14 +208,56 @@ function ajouterProduit(): void{
     }
 }
 
-ajouterProduit();
+// ajouterProduit();
+
+// print_r($categories);
+
+//5
+
+function ajouterCategorieAvecProduits(): void
+{
+    global $categories;
+
+    $code = saisirChampObligatoireEtUnique($categories, "Saisir le code : ", "Le code est obligatoire", "code");
+
+    $nom = saisirChampObligatoireEtUnique( $categories, "Saisir le nom : ", "Le nom est obligatoire", "nom" );
+
+    $produits = [];
+
+    do {
+
+        $nomProduit = saisirChampProduitObligatoireEtUnique($categories, "Saisir le nom du produit : ", "Le nom est obligatoire", "nom" );
+
+        $reference = saisirChampProduitObligatoireEtUnique( $categories, "Saisir la reference : ", "La reference est obligatoire", "reference" );
+
+        $prix = saisirEntierPositif("Saisir le prix : ");
+
+        $quantite = saisirEntierPositif("Saisir la quantite : " );
+
+        $produit = [
+            "nom" => $nomProduit,
+            "reference" => $reference,
+            "prix" => $prix,
+            "quantite" => $quantite
+        ];
+
+        $produits[] = $produit;
+
+        $choix = strtolower( saisirTexte("Voulez-vous continuer ? oui/non : "));
+
+    } while ($choix === "oui");
+
+    $categorie = [
+        "code" => $code,
+        "nom" => $nom,
+        "produits" => $produits
+    ];
+
+    $categories[] = $categorie;
+}
+ajouterCategorieAvecProduits();
 
 print_r($categories);
-
-
-
-
-
 
 
 
