@@ -122,8 +122,95 @@ ajouterCategorie();
 print_r($categories);
 
 
+//4
 
+function rechercherProduitParCle(array $categories, string $key, string $value): bool {
 
+    foreach ($categories as $categorie) {
+
+        foreach ($categorie["produits"] as $produit) {
+
+            if ($produit[$key] === $value) {
+                return true;
+            }
+
+        }
+
+    }
+
+    return false;
+}
+
+function saisirChampProduitObligatoireEtUnique(array $categories, string $smsSaisie, string $smsErreur, string $key): string {
+
+    do {
+
+        $value = saisirTexte($smsSaisie);
+
+        $valueIsValid = verifierChampObligatoire($value, $smsErreur);
+
+        if ($valueIsValid) {
+
+            if (
+                rechercherProduitParCle($categories, $key, $value)
+            ) {
+                echo "Le $key existe deja ...\n";
+                $valueIsValid = false;
+            }
+
+        }
+
+    } while (!$valueIsValid);
+
+    return $value;
+}
+
+function saisirEntierPositif(string $message): int
+{
+    do {
+
+        $nombre = (int) saisirTexte($message);
+
+    } while ($nombre < 0);
+
+    return $nombre;
+}
+
+function ajouterProduit(): void{
+    global $categories;
+
+    $code = saisirTexte("Saisir le code : ");
+
+    $index = rechercherCategorieParCle($categories, "code", $code);
+
+    if ($index !== false) {
+
+        $nom = saisirChampProduitObligatoireEtUnique($categories, "Saisir le nom : ", "Le nom est obligatoire","nom");
+
+        $reference = saisirChampProduitObligatoireEtUnique($categories,"Saisir la reference : ","La reference est obligatoire","reference");
+
+        $prix = saisirEntierPositif("Saisir le prix : ");
+        $quantite = saisirEntierPositif("Saisir la quantite : ");
+
+        $produit = [
+            "nom" => $nom,
+            "reference" => $reference,
+            "prix" => $prix,
+            "quantite" => $quantite
+        ];
+
+        $categories[$index]["produits"][] = $produit;
+
+    } else {
+
+        echo "Desole, la categorie n'existe pas...";
+
+    }
+}
+
+ajouterProduit();
+
+print_r($categories);
 
 
 
